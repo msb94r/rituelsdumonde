@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rituels Admin | Dashboard Pro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="admin-body">
+
+    <div id="login-screen" class="login-wrapper">
+        <div class="login-card">
+            <div class="login-header">
+                <h2>Rituels Admin</h2>
+                <p>Connexion sécurisée</p>
+            </div>
+            <form id="login-form">
+                <div class="input-group">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="admin-user" placeholder="Identifiant" required>
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="admin-pass" placeholder="Mot de passe" required>
+                </div>
+                <button type="submit" class="btn-login">Connexion <i class="fas fa-arrow-right"></i></button>
+            </form>
+            <p id="login-error" class="error-msg">Identifiants incorrects.</p>
+        </div>
+    </div>
+
+    <div id="admin-dashboard" class="dashboard-layout">
+        
+        <aside class="sidebar">
+            <div class="brand">
+                <i class="fas fa-spa"></i> RITUELS<span>ADMIN</span>
+            </div>
+            
+            <div class="menu-label">GESTION</div>
+            <nav class="sidebar-menu">
+                <button class="menu-item active" onclick="showSection('overview')">
+                    <i class="fas fa-chart-pie"></i> Vue d'ensemble
+                </button>
+                <button class="menu-item" onclick="showSection('orders')">
+                    <i class="fas fa-shopping-bag"></i> Commandes <span class="badge" id="sidebar-order-count">0</span>
+                </button>
+                <button class="menu-item" onclick="showSection('products')">
+                    <i class="fas fa-box"></i> Produits
+                </button>
+                <button class="menu-item" onclick="showSection('customers')">
+                    <i class="fas fa-users"></i> Clients
+                </button>
+            </nav>
+
+            <div class="menu-label">ACTIONS</div>
+            <nav class="sidebar-menu">
+                <a href="index.html" target="_blank" class="menu-item"><i class="fas fa-external-link-alt"></i> Voir le site</a>
+                <button class="menu-item logout" onclick="window.location.reload()"><i class="fas fa-power-off"></i> Déconnexion</button>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            
+            <header class="top-bar">
+                <h2 id="page-title" style="font-size:1.2rem; font-weight:600;">Tableau de bord</h2>
+                <div class="user-profile">
+                    <img src="https://ui-avatars.com/api/?name=Admin+Rituels&background=C5A059&color=fff" alt="Admin">
+                    <div>
+                        <span style="display:block; font-weight:600; font-size:0.9rem;">La Patronne</span>
+                        <span style="display:block; font-size:0.75rem; color:#888;">Administrateur</span>
+                    </div>
+                </div>
+            </header>
+
+            <section id="section-overview" class="view-section active">
+                <div class="stats-cards">
+                    <div class="card stat-card">
+                        <div class="stat-icon icon-gold"><i class="fas fa-coins"></i></div>
+                        <div class="stat-info">
+                            <h3>Chiffre d'Affaires</h3>
+                            <p class="stat-num" id="dash-revenue">0.00 €</p>
+                        </div>
+                    </div>
+                    <div class="card stat-card">
+                        <div class="stat-icon icon-blue"><i class="fas fa-receipt"></i></div>
+                        <div class="stat-info">
+                            <h3>Commandes</h3>
+                            <p class="stat-num" id="dash-orders">0</p>
+                        </div>
+                    </div>
+                    <div class="card stat-card">
+                        <div class="stat-icon icon-green"><i class="fas fa-wallet"></i></div>
+                        <div class="stat-info">
+                            <h3>Panier Moyen</h3>
+                            <p class="stat-num" id="dash-average">0.00 €</p>
+                        </div>
+                    </div>
+                    <div class="card stat-card">
+                        <div class="stat-icon icon-purple"><i class="fas fa-tags"></i></div>
+                        <div class="stat-info">
+                            <h3>Produits Actifs</h3>
+                            <p class="stat-num" id="dash-products">0</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-grid">
+                    <div class="card chart-container">
+                        <div style="display:flex; justify-content:space-between; margin-bottom:20px;">
+                            <h3>Performance des ventes</h3>
+                            <select style="border:none; bg:transparent; font-weight:bold; color:#888;"><option>7 derniers jours</option></select>
+                        </div>
+                        <canvas id="salesChart" height="250"></canvas>
+                    </div>
+                    
+                    <div class="card recent-orders">
+                        <h3>Activité Récente</h3>
+                        <table class="clean-table">
+                            <thead><tr><th>Client</th><th>Montant</th><th>Statut</th></tr></thead>
+                            <tbody id="dashboard-recent-body"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <section id="section-orders" class="view-section">
+                <div class="page-header">
+                    <input type="text" placeholder="Rechercher une commande..." style="padding:10px; border:1px solid #ddd; border-radius:6px; width:300px;">
+                    <button class="btn-primary" onclick="initAdminPage()"><i class="fas fa-sync-alt"></i> Actualiser</button>
+                </div>
+                <div class="card">
+                    <table class="clean-table full-width">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Client</th>
+                                <th>Contenu de la commande</th>
+                                <th>Total</th>
+                                <th>Statut</th>
+                            </tr>
+                        </thead>
+                        <tbody id="orders-table-body">
+                            </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section id="section-products" class="view-section">
+                <div class="page-header">
+                    <button class="btn-primary" onclick="openProductModal()" style="background:#2ecc71;">
+                        <i class="fas fa-plus-circle"></i> Ajouter un Produit
+                    </button>
+                </div>
+                <div class="card">
+                    <table class="clean-table full-width">
+                        <thead>
+                            <tr>
+                                <th width="80">Image</th>
+                                <th>Nom du produit</th>
+                                <th>Prix</th>
+                                <th>Catégorie</th>
+                                <th class="text-right">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="products-table-body">
+                            </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section id="section-customers" class="view-section">
+                <div class="card">
+                    <table class="clean-table full-width">
+                        <thead><tr><th>Nom Client</th><th>Email</th><th>Total Dépensé</th><th>Commandes</th></tr></thead>
+                        <tbody id="customers-table-body"></tbody>
+                    </table>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <div class="modal-backdrop" id="product-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-title">Nouveau Produit</h3>
+                <span class="close-modal" onclick="closeProductModal()">×</span>
+            </div>
+            <form id="product-form" class="modal-body">
+                <input type="hidden" id="edit-id"> <div class="form-row">
+                    <div class="form-col">
+                        <label>Nom du produit *</label>
+                        <input type="text" id="p-name" required placeholder="Ex: Huile Solaire">
+                    </div>
+                    <div class="form-col">
+                        <label>Marque</label>
+                        <input type="text" id="p-brand" placeholder="Ex: Caudalie">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-col">
+                        <label>Prix (€) *</label>
+                        <input type="number" id="p-price" step="0.01" required placeholder="45.00">
+                    </div>
+                    <div class="form-col">
+                        <label>Catégorie</label>
+                        <select id="p-category">
+                            <option value="visage">Visage</option>
+                            <option value="corps">Corps</option>
+                            <option value="maison">Maison</option>
+                        </select>
+                    </div>
+                </div>
+
+                <label>URL de l'image *</label>
+                <input type="url" id="p-image" required placeholder="https://...">
+                
+                <label>Description courte</label>
+                <textarea id="p-desc" rows="3" placeholder="Description pour la boutique..."></textarea>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn-cancel" onclick="closeProductModal()">Annuler</button>
+                    <button type="submit" class="btn-save">Enregistrer le produit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script type="module" src="script.js"></script>
+    <script>
+        // FONCTIONS D'INTERFACE (Pour que les boutons HTML marchent)
+        window.showSection = function(id) {
+            document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
+            document.getElementById('section-' + id).classList.add('active');
+            
+            document.querySelectorAll('.menu-item').forEach(el => el.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+            
+            // Titre dynamique
+            const titles = { 'overview': 'Vue d\'ensemble', 'orders': 'Commandes', 'products': 'Catalogue', 'customers': 'Clients' };
+            document.getElementById('page-title').innerText = titles[id];
+        };
+
+        window.openProductModal = function() {
+            document.getElementById('product-modal').classList.add('visible');
+            document.getElementById('product-form').reset();
+            document.getElementById('edit-id').value = ""; // Mode Création
+            document.getElementById('modal-title').innerText = "Ajouter un Produit";
+        };
+
+        window.closeProductModal = function() {
+            document.getElementById('product-modal').classList.remove('visible');
+        };
+
+        // Fonction pour pré-remplir le formulaire en mode édition
+        window.prepareEdit = function(id, name, price, cat, brand, img, desc) {
+            document.getElementById('edit-id').value = id;
+            document.getElementById('p-name').value = name;
+            document.getElementById('p-price').value = price;
+            document.getElementById('p-category').value = cat;
+            document.getElementById('p-brand').value = brand;
+            document.getElementById('p-image').value = img;
+            document.getElementById('p-desc').value = desc;
+            
+            document.getElementById('modal-title').innerText = "Modifier : " + name;
+            document.getElementById('product-modal').classList.add('visible');
+        };
+    </script>
+</body>
+</html>

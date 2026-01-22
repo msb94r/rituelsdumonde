@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Boutique | Rituels du Monde</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <nav>
+        <div class="logo"><a href="index.html">RITUELS DU MONDE</a></div>
+        <div class="nav-links">
+            <a href="index.html">L'Esprit</a>
+            <div class="dropdown">
+                <a href="#" class="dropbtn" style="cursor: default;">Univers ▾</a>
+                <div class="dropdown-content">
+                    <a href="univ-europe.html">Europe</a>
+                    <a href="univ-asie.html">Asie</a>
+                    <a href="univ-afrique.html">Afrique</a>
+                    <a href="univ-polynesie.html">Polynésie</a>
+                    <a href="univ-amerique.html">Amériques</a>
+                </div>
+            </div>
+            <a href="evenements.html">Événements</a>
+            <a href="boutique.html" class="active">Boutique</a>
+            <a href="contact.html">Contact</a>
+            
+            <div class="cart-icon-wrap" onclick="toggleCart()">
+                <i class="fas fa-shopping-bag" style="font-size: 1.2rem;"></i>
+                <span class="cart-count" id="cart-count">0</span>
+            </div>
+
+            <a href="reservation.html" class="btn-nav-resa">Réserver</a>
+        </div>
+    </nav>
+
+    <header class="shop-hero">
+        <div class="container">
+            <h1>La Boutique Sensorielle</h1>
+            <p>Prolongez l'expérience du spa chez vous.</p>
+        </div>
+    </header>
+
+    <section class="container section-padding">
+        <div class="shop-filters">
+            <button class="shop-filter-btn active" onclick="filterShop('all')">Tous</button>
+            <button class="shop-filter-btn" onclick="filterShop('visage')">Visage</button>
+            <button class="shop-filter-btn" onclick="filterShop('corps')">Corps</button>
+            <button class="shop-filter-btn" onclick="filterShop('maison')">Maison</button>
+        </div>
+
+        <div class="shop-grid" id="products-container">
+            <p style="text-align:center; width:100%; grid-column:1/-1;">Chargement des produits depuis le stock...</p>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-col">
+                <h4>Rituels du Monde</h4>
+                <p>12 Rue du Voyage, Rennes</p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="cart-overlay" onclick="toggleCart()"></div>
+    <div class="cart-sidebar">
+        <div class="cart-header"><h2>Votre Panier</h2><span class="close-cart" onclick="toggleCart()">×</span></div>
+        <div class="cart-items" id="cart-items-container"><p style="text-align:center; color:#999;">Vide.</p></div>
+        <div class="cart-footer">
+            <div class="cart-total"><span>Total</span><span id="cart-total-price">0.00 €</span></div>
+            <div id="paypal-button-container"></div>
+        </div>
+    </div>
+
+    <div class="success-overlay" id="success-modal">
+        <div class="success-box">
+            <div class="success-icon">✓</div>
+            <h2>Merci pour votre commande !</h2>
+            <p>Votre paiement a été validé. Vous recevrez un email de confirmation très bientôt.</p>
+            <button class="btn" onclick="location.href='index.html'">Retour à l'accueil</button>
+        </div>
+    </div>
+
+    <script src="https://www.paypal.com/sdk/js?client-id=ASSJSdddTydC_p3M3bUWnaIBJZxmfJz6LgFhL9Da4dR-KSDwY_5dleGtaD4zXSHg_-XmP9szLCKvhzyP&currency=EUR"></script>
+    <script type="module" src="script.js"></script>
+</body>
+</html>

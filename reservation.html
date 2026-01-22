@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Réserver | Rituels du Monde</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+</head>
+<body>
+    <nav>
+        <div class="logo"><a href="index.html">RITUELS DU MONDE</a></div>
+        <div class="nav-links">
+            <a href="index.html">L'Esprit</a>
+            <div class="dropdown">
+                <a href="#" class="dropbtn" style="cursor: default;">Univers ▾</a>
+                <div class="dropdown-content">
+                    <a href="univ-europe.html">Europe</a>
+                    <a href="univ-asie.html">Asie</a>
+                    <a href="univ-afrique.html">Afrique</a>
+                    <a href="univ-polynesie.html">Polynésie</a>
+                    <a href="univ-amerique.html">Amériques</a>
+                </div>
+            </div>
+            <a href="evenements.html">Événements</a>
+            <a href="boutique.html">Boutique</a>
+            <a href="contact.html">Contact</a>
+            
+            <div class="cart-icon-wrap" onclick="toggleCart()">
+                <i class="fas fa-shopping-bag" style="font-size: 1.2rem;"></i>
+                <span class="cart-count" id="cart-count">0</span>
+            </div>
+
+            <a href="reservation.html" class="active" style="color:var(--gold);">Réserver</a>
+        </div>
+    </nav>
+
+    <div class="booking-container">
+        <aside class="sidebar">
+            <h3>Votre Réservation</h3>
+            <div class="summary-row">
+                <label>Expérience</label>
+                <strong id="sum-soin" style="color:var(--gold);">Sélectionnez un soin</strong>
+            </div>
+            <div class="summary-row">
+                <label>Créneau</label>
+                <strong id="sum-date">--/-- à --h--</strong>
+            </div>
+            <div class="summary-row">
+                <label>Total</label>
+                <strong id="sum-price" style="font-size:1.4rem;">0.00 €</strong>
+            </div>
+            <hr style="border:0; border-top:1px solid #eee; margin:20px 0;">
+            <div style="font-size:0.8rem; color:#666; line-height:1.5;">
+                <p>✓ Paiement 100% sécurisé</p>
+                <p>✓ Confirmation immédiate</p>
+                <p>✓ Annulable jusqu'à 24h avant</p>
+            </div>
+        </aside>
+
+        <main class="main-booking">
+            <div class="steps">
+                <div class="step-bar active" id="bar-1"></div>
+                <div class="step-bar" id="bar-2"></div>
+                <div class="step-bar" id="bar-3"></div>
+            </div>
+
+            <div id="step-1" class="step-content active">
+                <h2>1. Choisissez votre Rituel</h2>
+                <p style="margin-bottom:20px; color:#666;">Un voyage sensoriel pour chaque continent.</p>
+                
+                <div class="service-card" onclick="window.selectService('Massage Blue Lagoon', 95, 'srv-1', 'Relaxant & Fluide • Vinothérapie')" id="srv-1">
+                    <div>
+                        <h4>Massage Blue Lagoon (1h)</h4>
+                        <span style="font-size:0.85rem; color:#666; display:block; margin-top:5px;"><i class="fas fa-water" style="color:var(--u-europe)"></i> Europe • Douceur Marine</span>
+                    </div>
+                    <div class="srv-price">95 €</div>
+                </div>
+
+                <div class="service-card" onclick="window.selectService('Massage Balinais', 110, 'srv-2', 'Énergétique & Profond • Kobido')" id="srv-2">
+                    <div>
+                        <h4>Massage Balinais & Kobido (1h15)</h4>
+                        <span style="font-size:0.85rem; color:#666; display:block; margin-top:5px;"><i class="fas fa-leaf" style="color:var(--u-asie)"></i> Asie • Équilibre Énergétique</span>
+                    </div>
+                    <div class="srv-price">110 €</div>
+                </div>
+
+                <div class="service-card" onclick="window.selectService('Rituel Oriental', 150, 'srv-3', 'Hammam, Gommage & Massage.')" id="srv-3">
+                    <div>
+                        <h4>Grand Rituel Oriental (1h30)</h4>
+                        <span style="font-size:0.85rem; color:#666; display:block; margin-top:5px;"><i class="fas fa-sun" style="color:var(--u-afrique)"></i> Afrique • Hammam & Gommage</span>
+                    </div>
+                    <div class="srv-price">150 €</div>
+                </div>
+
+                <div class="service-card" onclick="window.selectService('Escale Pacifique', 105, 'srv-4', 'Lomi-Lomi aux fleurs de Tiaré.')" id="srv-4">
+                    <div>
+                        <h4>Escale Pacifique Lomi-Lomi (1h)</h4>
+                        <span style="font-size:0.85rem; color:#666; display:block; margin-top:5px;"><i class="fas fa-spa" style="color:var(--u-polynesie)"></i> Océanie • Enveloppant & Chaud</span>
+                    </div>
+                    <div class="srv-price">105 €</div>
+                </div>
+
+                <div class="service-card" onclick="window.selectService('Force de la Terre', 100, 'srv-5', 'Deep Tissue & Pierres Chaudes.')" id="srv-5">
+                    <div>
+                        <h4>Force de la Terre (1h)</h4>
+                        <span style="font-size:0.85rem; color:#666; display:block; margin-top:5px;"><i class="fas fa-mountain" style="color:#8B4513"></i> Amériques • Deep Tissue (Ferme)</span>
+                    </div>
+                    <div class="srv-price">100 €</div>
+                </div>
+            </div>
+
+            <div id="step-2" class="step-content">
+                <h2>2. Date & Heure</h2>
+                
+                <div class="step-2-layout">
+                    <div>
+                        <label style="font-weight:bold; display:block; margin-bottom:10px;">Choisissez le jour</label>
+                        <div class="calendar-wrapper">
+                            <input type="text" id="modern-calendar" placeholder="Date">
+                        </div>
+                    </div>
+
+                    <div class="step-2-right-col">
+                        <label style="font-weight:bold; display:block; margin-bottom:10px;">Choisissez l'heure</label>
+                        
+                        <div id="time-slots-container" class="time-slots-grid">
+                            <p style="font-size:0.8rem; color:#888;">Sélectionnez une date à gauche.</p>
+                        </div>
+
+                        <div style="margin-top:30px;">
+                            <label style="font-weight:bold; display:block; margin-bottom:10px;">Praticienne</label>
+                            <div class="staff-grid">
+                                <div class="staff-card selected" onclick="window.selectStaff(this, 'Indifférent')">
+                                    <div class="staff-img" style="background:#eee; display:flex; align-items:center; justify-content:center; font-size:1.5rem;">✨</div>
+                                    <span class="staff-name">Peu importe</span>
+                                </div>
+                                <div class="staff-card" onclick="window.selectStaff(this, 'Sarah')">
+                                    <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=200" class="staff-img" alt="Sarah">
+                                    <span class="staff-name">Sarah</span>
+                                </div>
+                                <div class="staff-card" onclick="window.selectStaff(this, 'Amel')">
+                                    <img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?q=80&w=200" class="staff-img" alt="Amel">
+                                    <span class="staff-name">Amel</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="btn-group" style="margin-top:30px; display:flex; justify-content:space-between;">
+                    <button class="btn btn-outline" onclick="window.goToStep(1)">Retour</button>
+                    <button class="btn" id="btn-to-step3" style="opacity:0.5; pointer-events:none;" onclick="window.goToStep(3)">Continuer</button>
+                </div>
+            </div>
+
+            <div id="step-3" class="step-content">
+                <h2>3. Vos Coordonnées</h2>
+                <p style="margin-bottom:20px; color:#666;">Ces informations servent à valider votre rendez-vous.</p>
+
+                <div style="background:#f9f9f9; padding:20px; border-radius:8px; margin-bottom:30px; border:1px solid #eee;">
+                    <div class="form-grid">
+                        <div>
+                            <label style="font-weight:bold; font-size:0.85rem;">Prénom *</label>
+                            <input type="text" id="input-firstname" placeholder="Ex: Julie" style="background:white;">
+                        </div>
+                        <div>
+                            <label style="font-weight:bold; font-size:0.85rem;">Nom *</label>
+                            <input type="text" id="input-lastname" placeholder="Ex: Dupont" style="background:white;">
+                        </div>
+                    </div>
+                    <div class="form-grid">
+                        <div>
+                            <label style="font-weight:bold; font-size:0.85rem;">Email *</label>
+                            <input type="email" id="input-email" placeholder="julie@exemple.com" style="background:white;">
+                        </div>
+                        <div>
+                            <label style="font-weight:bold; font-size:0.85rem;">Téléphone mobile *</label>
+                            <input type="tel" id="input-phone" placeholder="06 12 34 56 78" style="background:white;">
+                        </div>
+                    </div>
+                </div>
+
+                <h3>Personnalisation du soin</h3>
+                
+                <label style="font-weight:bold; display:block; margin-bottom:10px;">Pression souhaitée</label>
+                <div class="options-group" id="opt-pression">
+                    <div class="option-chip selected" onclick="window.selectOption('pression', 'Moyenne', this)"><i class="fas fa-hand-holding-heart"></i> Moyenne</div>
+                    <div class="option-chip" onclick="window.selectOption('pression', 'Douce', this)"><i class="fas fa-feather"></i> Douce</div>
+                    <div class="option-chip" onclick="window.selectOption('pression', 'Ferme', this)"><i class="fas fa-fist-raised"></i> Ferme</div>
+                </div>
+
+                <label style="font-weight:bold; display:block; margin-bottom:10px;">Ambiance Sonore</label>
+                <div class="options-group" id="opt-music">
+                    <div class="option-chip selected" onclick="window.selectOption('music', 'Nature', this)"><i class="fas fa-leaf"></i> Nature</div>
+                    <div class="option-chip" onclick="window.selectOption('music', 'Piano', this)"><i class="fas fa-music"></i> Piano Zen</div>
+                    <div class="option-chip" onclick="window.selectOption('music', 'Silence', this)"><i class="fas fa-volume-mute"></i> Silence</div>
+                </div>
+
+                <label style="font-weight:bold; display:block; margin-bottom:10px;">Remarques (Santé, Allergies...)</label>
+                <textarea id="input-notes" rows="2" placeholder="Avez-vous des zones à éviter ?"></textarea>
+
+                <button class="btn" style="width:100%; margin-top:30px; font-weight:bold; background:var(--gold); border-color:var(--gold);" onclick="window.finalizeBooking()">
+                    Ajouter au Panier
+                </button>
+                
+                <button class="btn btn-text" style="width:100%; margin-top:10px; color:#666; background:none; border:none;" onclick="window.goToStep(2)">Retour</button>
+            </div>
+        </main>
+    </div>
+
+    <div class="cart-overlay" onclick="toggleCart()"></div>
+    <div class="cart-sidebar">
+        <div class="cart-header"><h2>Votre Panier</h2><span class="close-cart" onclick="toggleCart()">×</span></div>
+        <div class="cart-items" id="cart-items-container"><p style="text-align:center; color:#999;">Vide.</p></div>
+        <div class="cart-footer">
+            <div class="cart-total"><span>Total</span><span id="cart-total-price">0.00 €</span></div>
+            <div id="paypal-button-container"></div>
+        </div>
+    </div>
+
+    <div class="success-overlay" id="success-modal">
+        <div class="success-box">
+            <div class="success-icon">✓</div>
+            <h2>Merci pour votre commande !</h2>
+            <p>Votre paiement a été validé. Vous recevrez un email de confirmation très bientôt.</p>
+            <button class="btn" onclick="location.href='index.html'">Retour à l'accueil</button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://npmcdn.com/flatpickr/dist/l10n/fr.js"></script>
+    <script src="https://www.paypal.com/sdk/js?client-id=ASSJSdddTydC_p3M3bUWnaIBJZxmfJz6LgFhL9Da4dR-KSDwY_5dleGtaD4zXSHg_-XmP9szLCKvhzyP&currency=EUR"></script>
+    <script type="module" src="script.js"></script>
+</body>
+</html>
